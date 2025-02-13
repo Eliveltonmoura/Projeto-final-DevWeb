@@ -1,0 +1,13 @@
+//export const API_BASE_URL = "http://localhost:1337/api";
+
+
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "strict": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true
+  }
+}
