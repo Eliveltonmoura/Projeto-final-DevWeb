@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notas",
+  "info": {
+    "singularName": "nota",
+    "pluralName": "notas",
+    "displayName": "nota"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "resposta": {
+      "type": "string"
+    },
+    "nota": {
+      "type": "float"
+    },
+    "feedbacks": {
+      "type": "string"
+    }
+  }
+}
