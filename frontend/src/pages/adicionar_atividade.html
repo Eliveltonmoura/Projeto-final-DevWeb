@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Atividade</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Adicionar Atividade</h2>
+        <form id="formAtividade">
+            <input type="text" id="titulo" placeholder="Título" required>
+            <textarea id="descricao" placeholder="Descrição" required></textarea>
+            <input type="date" id="data_fim" required>
+            <button type="submit" >Criar</button>
+        </form>
+        <a href="/frontend/src/pages/dashboard.html">Voltar</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./../../dist/main.js"></script>
+    <script src="./../../dist/adicionar_atividade.js"></script>
+</body>
+</html>
