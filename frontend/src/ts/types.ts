@@ -1,12 +1,12 @@
 
 
-interface StrapiResponse<T> {
-  data: T[]
+interface StrapiResponse<Atividade> {
+  data: Atividade[]
   meta: Pagination
 }
 
-interface StrapiResponseSingle<T> {
-  data: T
+interface StrapiResponseSingle<Atividade> {
+  data: Atividade
   meta: Pagination
 }
 
