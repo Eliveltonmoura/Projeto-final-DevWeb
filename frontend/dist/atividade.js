@@ -9,6 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 class TaskManager {
+    getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield api.get('/atividades');
+            return res.data;
+            console.log(res.data);
+        });
+    }
     create(atividade) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Criando Atividade:", atividade);

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórum - Portal Educativo</title>
+    <link rel="stylesheet" href="../css/forum.css">
+</head>
+<body>
+    <header>
+        <h1>Fórum Educativo</h1>
+        <nav>
+            <a href="teladoUsuario.html">Início</a>
+            <a href="materiais.html">Materiais</a>
+            <a href="simulados.html">Simulados</a>
+            <a href="faq.html">Ajuda</a>
+            <a href="forum.html" class="active">Fórum</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="new-post">
+            <h2>Criar Novo Post</h2>
+            <textarea id="postContent" placeholder="Escreva sua dúvida ou contribuição..."></textarea>
+            <button id="postButton">Publicar</button>
+        </section>
+
+        <section class="forum">
+            <h2>Discussões</h2>
+            <div id="postsContainer"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portal Educativo. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../../dist/forum.js"></script>
+</body>
+</html>

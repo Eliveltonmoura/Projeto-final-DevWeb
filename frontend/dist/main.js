@@ -14,16 +14,4 @@ formAtividade.addEventListener("submit", (event) => __awaiter(void 0, void 0, vo
     const tituloInput = document.getElementById("titulo");
     const descricaoInput = document.getElementById("descricao");
     const dataFimInput = document.getElementById("data_fim");
-    console.log(tituloInput.value);
-    console.log(descricaoInput.value);
-    console.log(dataFimInput.value);
-    const atividade = {
-        description: descricaoInput.value,
-        deadline: dataFimInput.value,
-        done: false,
-        category: {
-            documentId: "1"
-        },
-        titulo: tituloInput.value
-    };
 }));
