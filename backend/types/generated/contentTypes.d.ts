@@ -502,7 +502,7 @@ export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Email: Schema.Attribute.Email & Schema.Attribute.Required;
+    Email: Schema.Attribute.Email;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -510,8 +510,8 @@ export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     Nome: Schema.Attribute.String & Schema.Attribute.Required;
+    passwoard: Schema.Attribute.Password;
     publishedAt: Schema.Attribute.DateTime;
-    senha: Schema.Attribute.Password & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -15,12 +15,10 @@
       "required": true
     },
     "Email": {
-      "type": "email",
-      "required": true
+      "type": "email"
     },
-    "senha": {
-      "type": "password",
-      "required": true
+    "passwoard": {
+      "type": "password"
     }
   }
 }
