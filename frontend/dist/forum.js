@@ -24,13 +24,12 @@ function createPost(content) {
                 commentElement.classList.add("comment");
                 commentElement.innerText = commentText;
                 commentsDiv.appendChild(commentElement);
-                commentInput.value = ""; // Limpa o campo de comentário
+                commentInput.value = "";
             }
         });
         postsContainer.appendChild(postElement);
     }
 }
-// Adiciona evento ao botão de postar
 document.addEventListener("DOMContentLoaded", () => {
     const postButton = document.getElementById("postButton");
     const postContent = document.getElementById("postContent");
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const content = postContent.value.trim();
             if (content) {
                 createPost(content);
-                postContent.value = ""; // Limpa o campo de post
+                postContent.value = "";
             }
         });
     }

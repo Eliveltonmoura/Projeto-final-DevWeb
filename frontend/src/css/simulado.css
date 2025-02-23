@@ -126,9 +126,9 @@ nav a.active {
 
 /* Rodapé */
 footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #007bff;
+    background: #0073e6;
     color: white;
-    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 85px;
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Professor</title>
+    <link rel="stylesheet" href="../css/prof.css">
+</head>
+<body>
+    <header>
+        <h1>Painel do Professor</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="forum.html">Fórum</a>
+            <a href="simulados.html">Simulados</a>
+            <a href="materiais.html">Materiais</a>
+        </nav>
+        <div class="perfil">
+            <img id="fotoPerfil" src="img/default.png" alt="Foto do Professor">
+            <div class="perfil-info">
+                <p id="nomeProfessor">Professor Nome</p>
+                <p id="emailProfessor">email@escola.com</p>
+                <button id="logout">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção de adicionar atividade -->
+        <section class="add-section">
+            <h2>Adicionar Atividade</h2>
+            <input type="text" id="atividadeTitulo" placeholder="Título da Atividade">
+            <textarea id="atividadeDescricao" placeholder="Descrição da Atividade"></textarea>
+            <input type="file" id="atividadeArquivo">
+            <button id="addAtividade">Adicionar</button>
+        </section>
+
+        <!-- Lista de atividades -->
+        <section class="list-section">
+            <h2>Atividades Criadas</h2>
+            <ul id="listaAtividades"></ul>
+        </section>
+
+        <!-- Seção de adicionar material -->
+        <section class="add-section">
+            <h2>Adicionar Material</h2>
+            <input type="text" id="materialNome" placeholder="Nome do Material">
+            <input type="url" id="materialLink" placeholder="Link do Material">
+            <button id="addMaterial">Adicionar</button>
+        </section>
+
+        <!-- Lista de materiais -->
+        <section class="list-section">
+            <h2>Materiais Disponíveis</h2>
+            <ul id="listaMateriais"></ul>
+        </section>
+
+        <!-- Seção de adicionar turma -->
+        <section class="add-section">
+            <h2>Adicionar Turma</h2>
+            <input type="text" id="turmaNome" placeholder="Nome da Turma">
+            <button id="addTurma">Criar Turma</button>
+        </section>
+
+        <!-- Lista de turmas -->
+        <section class="list-section">
+            <h2>Turmas Criadas</h2>
+            <ul id="listaTurmas"></ul>
+        </section>
+
+        <!-- Seção de resultados das atividades -->
+        <section class="list-section">
+            <h2>Resultados das Atividades</h2>
+            <ul id="listaResultados"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portal Educativo. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../../dist/prof.js"></script>
+</body>
+</html>
