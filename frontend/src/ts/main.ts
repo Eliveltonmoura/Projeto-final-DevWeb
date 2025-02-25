@@ -1,7 +1,4 @@
 
-
-
-
     const formAtividade = document.getElementById("formAtividade") as HTMLFormElement;
 
     formAtividade.addEventListener("submit", async (event) => {

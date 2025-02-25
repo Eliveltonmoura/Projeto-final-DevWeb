@@ -1,8 +1,37 @@
-//import { api } from "./axiosConfig";
+
+
+//import axios from 'axios';
+
+
+
+//const baseURL = 'http://localhost:1337/api/atividades';
+
+
+
+const listaAtividades = document.getElementById("listaAtividades");
+
+
+if (listaAtividades) {
+    listaAtividades.textContent = "Aqui ficaria a lista de atividades";
+     
+}
+
+//getStrapi()
+
+
+
+
+
+
+
+
+/*
+
+
+
+
 
 class TaskManager {
-
-
 
     async getAll(): Promise<StrapiResponse<Atividade>> {
         const res = await api.get('/atividades');
@@ -32,4 +61,4 @@ class TaskManager {
 
 
 
-export const taskManager = new TaskManager();
+export const taskManager = new TaskManager();*/

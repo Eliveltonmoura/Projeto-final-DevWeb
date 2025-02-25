@@ -13,12 +13,14 @@
         <h2>Login</h2>
         <form id="loginForm">
             <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Senha" required>
-            <button  id="submit"  onclick="navigateTo()" type="submit">Entrar</button>
+            <input type="password" id="senha" placeholder="Senha" required>
+            <button  id="submit"  type="submit">Entrar</button>
         </form>
         <p>Não tem uma conta? <a href="./cadastro.html">Cadastre-se</a></p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./../../dist/axiosConfig.js"></script>
     <script src="../../dist/login.js"></script>
 </body>
 

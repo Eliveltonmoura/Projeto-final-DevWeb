@@ -17,13 +17,22 @@ interface Pagination {
   total: number
 }
 
+interface Forum {
+  documentId?: string,
+  description: string,
+  done: boolean,
+  deadline?: string,
+  category: Category,
+
+}
+
 interface Atividade {
   documentId?: string,
   description: string,
   done: boolean,
   deadline?: string,
   category: Category,
-  titulo?: string // Adicionado o campo titulo
+  titulo?: string
 }
 
 interface Category {

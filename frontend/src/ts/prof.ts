@@ -1,11 +1,9 @@
-// Simulação de login do professor
+
 const professor = {
     nome: "Elivelton",
     email: "elivelton@escola.com",
     foto: "img/professor.jpg"
 };
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const nomeProfessor = document.getElementById("nomeProfessor") as HTMLElement;
     const emailProfessor = document.getElementById("emailProfessor") as HTMLElement;
