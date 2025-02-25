@@ -514,36 +514,6 @@ export interface ApiRespostaResposta extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
-  collectionName: 'usuarios';
-  info: {
-    displayName: 'Usuario';
-    pluralName: 'usuarios';
-    singularName: 'usuario';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Email: Schema.Attribute.Email;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::usuario.usuario'
-    > &
-      Schema.Attribute.Private;
-    Nome: Schema.Attribute.String & Schema.Attribute.Required;
-    passwoard: Schema.Attribute.Password;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1058,7 +1028,6 @@ declare module '@strapi/strapi' {
       'api::material.material': ApiMaterialMaterial;
       'api::nota.nota': ApiNotaNota;
       'api::resposta.resposta': ApiRespostaResposta;
-      'api::usuario.usuario': ApiUsuarioUsuario;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

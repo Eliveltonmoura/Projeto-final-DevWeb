@@ -1,3 +1,6 @@
 
 login: portaledu@ufc.br
 senha: @Portaledu2024@
+
+usuario: antonio@gmail.com
+senha: 1234567
