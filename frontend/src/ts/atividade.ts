@@ -16,22 +16,9 @@ if (listaAtividades) {
      
 }
 
-//getStrapi()
 
 
-
-
-
-
-
-
-/*
-
-
-
-
-
-class TaskManager {
+class AtividadeTaskManager {
 
     async getAll(): Promise<StrapiResponse<Atividade>> {
         const res = await api.get('/atividades');
@@ -58,7 +45,12 @@ class TaskManager {
 
     }
 }
+ 
+const atividadeTaskManager = new AtividadeTaskManager ()
 
 
+atividadeTaskManager.getAll().then((res) => {
+    console.log(res);
+});
 
-export const taskManager = new TaskManager();*/
+
