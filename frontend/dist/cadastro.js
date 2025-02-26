@@ -35,13 +35,12 @@ function registro(nome, email, senha) {
                 populate: 'role'
             }
         });
+        location.assign('login.html');
         console.log(res.data);
         localStorage.setItem('username', res.data.username);
         localStorage.setItem('id', res.data.id);
         localStorage.setItem('documentId', res.data.documentId);
         localStorage.setItem('role', res.data.role.name);
         localStorage.setItem('token', jwt);
-        location.assign('login.html');
-        console.log('Logado com sucesso');
     });
 }

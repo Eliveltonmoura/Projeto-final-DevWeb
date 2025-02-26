@@ -32,7 +32,7 @@ async function registro(nome:string, email: string, senha: string) {
       populate: 'role'
     }
   })
-
+  location.assign('login.html')
   console.log(res.data)
 
   localStorage.setItem('username', res.data.username)
@@ -43,7 +43,7 @@ async function registro(nome:string, email: string, senha: string) {
 
   
 
-  location.assign('login.html')
-  console.log('Logado com sucesso')
+  
+  
 }
 
