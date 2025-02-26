@@ -403,6 +403,7 @@ export interface ApiAtividadeAtividade extends Struct.CollectionTypeSchema {
 export interface ApiForumForum extends Struct.CollectionTypeSchema {
   collectionName: 'forums';
   info: {
+    description: '';
     displayName: 'forum';
     pluralName: 'forums';
     singularName: 'forum';
@@ -411,7 +412,6 @@ export interface ApiForumForum extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Comentario: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -451,63 +451,6 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
     professor: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     Titulo: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiNotaNota extends Struct.CollectionTypeSchema {
-  collectionName: 'notas';
-  info: {
-    displayName: 'nota';
-    pluralName: 'notas';
-    singularName: 'nota';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    feedbacks: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::nota.nota'> &
-      Schema.Attribute.Private;
-    nota: Schema.Attribute.Float;
-    publishedAt: Schema.Attribute.DateTime;
-    resposta: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiRespostaResposta extends Struct.CollectionTypeSchema {
-  collectionName: 'respostas';
-  info: {
-    displayName: 'resposta';
-    pluralName: 'respostas';
-    singularName: 'resposta';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    aluno: Schema.Attribute.String & Schema.Attribute.DefaultTo<'relation'>;
-    atividade: Schema.Attribute.String & Schema.Attribute.DefaultTo<'relation'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::resposta.resposta'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    resposta: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1026,8 +969,6 @@ declare module '@strapi/strapi' {
       'api::atividade.atividade': ApiAtividadeAtividade;
       'api::forum.forum': ApiForumForum;
       'api::material.material': ApiMaterialMaterial;
-      'api::nota.nota': ApiNotaNota;
-      'api::resposta.resposta': ApiRespostaResposta;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

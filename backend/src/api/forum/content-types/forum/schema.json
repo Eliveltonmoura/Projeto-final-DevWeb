@@ -4,7 +4,8 @@
   "info": {
     "singularName": "forum",
     "pluralName": "forums",
-    "displayName": "forum"
+    "displayName": "forum",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,9 +13,6 @@
   "attributes": {
     "Titulo": {
       "type": "string"
-    },
-    "Comentario": {
-      "type": "text"
     }
   }
 }

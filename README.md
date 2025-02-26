@@ -75,3 +75,5 @@ Lista as tecnologias, frameworks e bibliotecas utilizados.
 | --- | --- |
 | GET | api/entidade1/|
 | POST | api/entidade2 |
+
+login e cadastro ok
