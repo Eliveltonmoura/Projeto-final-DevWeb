@@ -8,68 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-class TaskManager {
-    getAll() {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(localStorage.getItem('id'));
-            const res = yield api.get('/forums', {
-                // headers: authorizationHeader.headers,
-                params: {
-                    populate: 'category',
-                    "filters[user][$eq]": localStorage.getItem('id')
-                }
-            });
-            return res.data;
-        });
-    }
-    create(forum) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(forum);
-            const res = yield api.post('/forums/', {
-                data: {
-                    description: forum.description,
-                    category: forum.category.documentId,
-                    done: forum.done,
-                    deadline: forum.deadline,
-                    user: localStorage.getItem('id')
-                }
-            });
-            return res.data;
-        });
-    }
-    getById(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const res = yield api.get(`/forums/${id}`);
-            return res.data;
-        });
-    }
-    delete(forum) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield api.delete(`/forums/${forum.documentId}`);
-        });
-    }
-    update(task) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const res = yield api.put(`/forums/${task.documentId}`, {
-                data: {
-                    description: task.description
-                }
-            });
-            return res.data;
-        });
-    }
-}
-const taskManager = new TaskManager();
 const authorizationHeader = {
     headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}` // Certifique-se de que 'token' é a chave correta
-    }
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
 };
 function createPost(content) {
-    const postsContainer = document.getElementById("postsContainer");
+    const postsContainer = document.getElementById('postsContainer');
     if (postsContainer) {
-        const postElement = document.createElement("div");
-        postElement.classList.add("post");
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
         postElement.innerHTML = `
       <p>${content}</p>
       <div class="comment-section">
@@ -78,36 +26,91 @@ function createPost(content) {
         <div class="comments"></div>
       </div>
     `;
-        const commentButton = postElement.querySelector(".comment-button");
-        const commentInput = postElement.querySelector(".comment-input");
-        const commentsDiv = postElement.querySelector(".comments");
-        commentButton.addEventListener("click", () => {
+        const commentButton = postElement.querySelector('.comment-button');
+        const commentInput = postElement.querySelector('.comment-input');
+        const commentsDiv = postElement.querySelector('.comments');
+        commentButton.addEventListener('click', () => {
             const commentText = commentInput.value.trim();
             if (commentText) {
-                const commentElement = document.createElement("div");
-                commentElement.classList.add("comment");
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
                 commentElement.innerText = commentText;
                 commentsDiv.appendChild(commentElement);
-                commentInput.value = "";
+                commentInput.value = '';
             }
         });
         postsContainer.appendChild(postElement);
     }
 }
-/*
-document.addEventListener("DOMContentLoaded", () => {
-  const postButton = document.getElementById("postButton");
-  const postContent = document.getElementById("postContent") as HTMLTextAreaElement;
-
-  if (postButton && postContent) {
-    postButton.addEventListener("click", () => {
-      const content = postContent.value.trim();
-      if (content) {
-        createPost(content);
-        postContent.value = "";
-      }
-    });
-  }
-});
-
-*/
+class ForumManager {
+    getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield api.get('/forums', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                params: {
+                    populate: 'category',
+                    'filters[user][$eq]': localStorage.getItem('documentId'),
+                },
+            });
+            return res.data;
+        });
+    }
+    create(forum) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield api.post('/forums', {
+                data: {
+                    description: forum.description,
+                    category: forum.category.documentId,
+                    done: forum.done,
+                    deadline: forum.deadline,
+                    user: localStorage.getItem('id'),
+                },
+            }, authorizationHeader);
+            return res.data;
+        });
+    }
+    getById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield api.get(`/forums/${id}`, authorizationHeader);
+            return res.data;
+        });
+    }
+    delete(forum) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield api.delete(`/forums/${forum.documentId}`, authorizationHeader);
+            return forum;
+        });
+    }
+    update(forum) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield api.put(`/forums/${forum.documentId}`, {
+                data: {
+                    description: forum.description,
+                },
+            }, authorizationHeader);
+            return res.data;
+        });
+    }
+}
+const forumForm = document.getElementById('forumForm');
+const postContent = document.getElementById('postContent');
+const deadlineInput = document.getElementById('deadlineInput');
+const selectCategory = document.getElementById('selectCategory');
+console.log(forumForm);
+forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
+    e.preventDefault();
+    const forum = {
+        description: postContent.value,
+        deadline: deadlineInput.value || undefined,
+        done: false,
+        category: {
+            documentId: selectCategory.value,
+            //description: selectCategory.options[selectCategory.selectedIndex].text,
+        },
+    };
+    const forumManager = new ForumManager();
+    yield forumManager.create(forum);
+    forumForm.reset();
+}));

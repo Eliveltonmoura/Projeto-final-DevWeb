@@ -4,9 +4,19 @@ interface StrapiResponse<Atividade> {
   data: Atividade[]
   meta: Pagination
 }
+interface StrapiResponseForum<T> {
+  data:T[]
+  meta: Pagination
+}
+
+
 
 interface StrapiResponseSingle<Atividade> {
   data: Atividade
+  meta: Pagination
+}
+interface StrapiResponseSingleForum<T> {
+  data: T
   meta: Pagination
 }
 
@@ -19,7 +29,7 @@ interface Pagination {
 
 interface Forum {
   documentId?: string,
-  description: string,
+  description?: string,
   done: boolean,
   deadline?: string,
   category: Category,
