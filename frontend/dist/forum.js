@@ -107,6 +107,7 @@ forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener
         deadline: new Date().toISOString(),
     };
     const forumManager = new ForumManager();
+    forumManager.getAll();
     yield forumManager.create(forum);
     // createPost(postContent.value);
     forumForm.reset();
