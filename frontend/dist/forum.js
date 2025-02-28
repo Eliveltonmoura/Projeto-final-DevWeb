@@ -62,11 +62,10 @@ class ForumManager {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield api.post('/forums/', {
                 data: {
-                    description: forum.description,
-                    done: forum.done,
-                    deadline: forum.deadline,
-                    //user: localStorage.getItem('documentId'), 
-                    user: Number(localStorage.getItem('documentId'))
+                    title: forum.title,
+                    done: false,
+                    deadline: new Date().toISOString(),
+                    user: localStorage.getItem('documentId') || '',
                 },
             }, authorizationHeader);
             return res.data;
@@ -88,7 +87,7 @@ class ForumManager {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield api.put(`/forums/${forum.documentId}`, {
                 data: {
-                    description: forum.description,
+                    title: forum.title,
                 },
             }, authorizationHeader);
             return res.data;
@@ -101,10 +100,12 @@ console.log(forumForm);
 forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const forum = {
-        description: postContent.value,
+        title: postContent.value,
         done: false,
+        deadline: new Date().toISOString(),
     };
     const forumManager = new ForumManager();
-    yield forumManager.create(forum);
+    forumManager.create(forum);
+    createPost(postContent.value);
     forumForm.reset();
 }));

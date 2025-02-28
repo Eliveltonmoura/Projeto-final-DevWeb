@@ -28,11 +28,13 @@ interface Pagination {
 }
 
 interface Forum {
+  
   documentId?: string,
-  description?: string,
-  done: boolean,
+  title?: string,
+  done?: boolean,
   deadline?: string,
   descriptions?: string
+
 
 }
 

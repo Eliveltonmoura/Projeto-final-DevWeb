@@ -56,17 +56,17 @@ class ForumManager {
     return res.data;
   }
 
-  
+
 
   async create(forum: Forum): Promise<StrapiResponseSingleForum<Forum>> {
     const res = await api.post('/forums/',
       {
         data: {
-          description: forum.description,
-          done: forum.done,
-          deadline: forum.deadline,
-          user: localStorage.getItem('documentId'), 
-          
+          title: forum.title,
+          done: false,
+          deadline: new Date().toISOString(),
+          user: localStorage.getItem('documentId') || '',
+
         },
       },
       authorizationHeader,
@@ -89,7 +89,7 @@ class ForumManager {
       `/forums/${forum.documentId}`,
       {
         data: {
-          description: forum.description,
+          title: forum.title,
         },
       },
       authorizationHeader,
@@ -107,14 +107,17 @@ forumForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const forum: Forum = {
-    description: postContent.value,
-    done: false,
     
+    title: postContent.value,
+    done: false,
+    deadline: new Date().toISOString(),
+    
+
   };
 
   const forumManager = new ForumManager();
-  await forumManager.create(forum);
-
+   forumManager.create(forum);
+  createPost(postContent.value);
 
   forumForm.reset();
 });
