@@ -13,6 +13,7 @@ const authorizationHeader = {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
 };
+console.log(localStorage.getItem('token'));
 function createPost(content) {
     const postsContainer = document.getElementById('postsContainer');
     if (postsContainer) {
@@ -45,7 +46,7 @@ function createPost(content) {
 class ForumManager {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield api.get('/forums', {
+            const res = yield api.get('/forums/', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -59,13 +60,13 @@ class ForumManager {
     }
     create(forum) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield api.post('/forums', {
+            const res = yield api.post('/forums/', {
                 data: {
                     description: forum.description,
-                    category: forum.category.documentId,
                     done: forum.done,
                     deadline: forum.deadline,
-                    user: localStorage.getItem('id'),
+                    //user: localStorage.getItem('documentId'), 
+                    user: Number(localStorage.getItem('documentId'))
                 },
             }, authorizationHeader);
             return res.data;
@@ -96,19 +97,12 @@ class ForumManager {
 }
 const forumForm = document.getElementById('forumForm');
 const postContent = document.getElementById('postContent');
-const deadlineInput = document.getElementById('deadlineInput');
-const selectCategory = document.getElementById('selectCategory');
 console.log(forumForm);
 forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const forum = {
         description: postContent.value,
-        deadline: deadlineInput.value || undefined,
         done: false,
-        category: {
-            documentId: selectCategory.value,
-            //description: selectCategory.options[selectCategory.selectedIndex].text,
-        },
     };
     const forumManager = new ForumManager();
     yield forumManager.create(forum);

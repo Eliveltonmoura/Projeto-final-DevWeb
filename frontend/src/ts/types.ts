@@ -32,7 +32,7 @@ interface Forum {
   description?: string,
   done: boolean,
   deadline?: string,
-  category: Category,
+  descriptions?: string
 
 }
 
@@ -41,10 +41,6 @@ interface Atividade {
   description: string,
   done: boolean,
   deadline?: string,
-  category: Category,
   titulo?: string
 }
 
-interface Category {
-  documentId: string,
-}

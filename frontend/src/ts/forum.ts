@@ -5,6 +5,8 @@ const authorizationHeader = {
   },
 };
 
+console.log(localStorage.getItem('token'));
+
 function createPost(content: string): void {
   const postsContainer = document.getElementById('postsContainer');
 
@@ -42,7 +44,7 @@ function createPost(content: string): void {
 
 class ForumManager {
   async getAll(): Promise<StrapiResponseForum<Forum>> {
-    const res = await api.get('/forums', {
+    const res = await api.get('/forums/', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -54,15 +56,17 @@ class ForumManager {
     return res.data;
   }
 
+  
+
   async create(forum: Forum): Promise<StrapiResponseSingleForum<Forum>> {
-    const res = await api.post('/forums',
+    const res = await api.post('/forums/',
       {
         data: {
           description: forum.description,
-          category: forum.category.documentId,
           done: forum.done,
           deadline: forum.deadline,
-          user: localStorage.getItem('id'), 
+          user: localStorage.getItem('documentId'), 
+          
         },
       },
       authorizationHeader,
@@ -96,20 +100,16 @@ class ForumManager {
 
 const forumForm = document.getElementById('forumForm') as HTMLFormElement;
 const postContent = document.getElementById('postContent') as HTMLInputElement;
-const deadlineInput = document.getElementById('deadlineInput') as HTMLInputElement;
-const selectCategory = document.getElementById('selectCategory') as HTMLSelectElement;
+
 console.log(forumForm)
+
 forumForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const forum: Forum = {
     description: postContent.value,
-    deadline: deadlineInput.value || undefined,
     done: false,
-    category: {
-      documentId: selectCategory.value,
-      //description: selectCategory.options[selectCategory.selectedIndex].text,
-    },
+    
   };
 
   const forumManager = new ForumManager();
