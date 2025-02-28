@@ -126,7 +126,6 @@ forumForm?.addEventListener('submit', async (e) => {
 
   const forumManager = new ForumManager();
 
-  await forumManager.getAll();
 
   await forumManager.create(forum);
 
@@ -135,4 +134,5 @@ forumForm?.addEventListener('submit', async (e) => {
   forumForm.reset();
 });
 
-
+const forumManager = new ForumManager();
+forumManager.getAll();

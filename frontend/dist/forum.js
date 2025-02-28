@@ -47,12 +47,11 @@ class ForumManager {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield api.get('/forums/', authorizationHeader);
-            console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2)); // Verifique a resposta no console
+            console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2));
             if (!res.data || !res.data.data || res.data.data.length === 0) {
                 console.error("Erro: Nenhum post encontrado.");
                 return res.data;
             }
-            // 🔹 Agora pegamos "Titulo" corretamente
             res.data.data.forEach((post) => {
                 if (post.Titulo) {
                     createPost(post.Titulo);
@@ -108,8 +107,9 @@ forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener
         deadline: new Date().toISOString(),
     };
     const forumManager = new ForumManager();
-    yield forumManager.getAll();
     yield forumManager.create(forum);
     // createPost(postContent.value);
     forumForm.reset();
 }));
+const forumManager = new ForumManager();
+forumManager.getAll();
