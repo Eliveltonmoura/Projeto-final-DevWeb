@@ -30,7 +30,7 @@ interface Pagination {
 interface Forum {
   
   documentId?: string,
-  title?: string,
+  Titulo?: string,
   done?: boolean,
   deadline?: string,
   descriptions?: string
@@ -45,4 +45,5 @@ interface Atividade {
   deadline?: string,
   titulo?: string
 }
+
 
