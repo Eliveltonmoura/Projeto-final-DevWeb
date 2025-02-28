@@ -46,15 +46,13 @@ function createPost(content) {
 class ForumManager {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield api.get('/forums/', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-                params: {
-                    populate: 'category',
-                    'filters[user][$eq]': localStorage.getItem('documentId'),
-                },
-            });
+            const res = yield api.get('/forums/', authorizationHeader);
+            console.log("Resposta do Strapi:", res.data);
+            if (!res.data || !res.data.data || res.data.data.length === 0) {
+                console.error("Erro: Nenhum post encontrado.");
+                return res.data;
+            }
+            createPost(res.data.data.Titulo);
             return res.data;
         });
     }
@@ -105,6 +103,8 @@ forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener
         deadline: new Date().toISOString(),
     };
     const forumManager = new ForumManager();
-    yield forumManager.create(forum); // Aguarde a resposta do backend
+    yield forumManager.getAll();
+    yield forumManager.create(forum);
+    // createPost(postContent.value);
     forumForm.reset();
 }));
