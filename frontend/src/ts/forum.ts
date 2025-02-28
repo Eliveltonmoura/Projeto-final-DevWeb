@@ -43,23 +43,27 @@ function createPost(content: string): void {
 }
 
 class ForumManager {
-
   async getAll(): Promise<StrapiResponseForum<Forum>> {
-    
-      const res = await api.get('/forums/'  , authorizationHeader);
-      
-      console.log("Resposta do Strapi:", res.data); 
-  
-      if (!res.data || !res.data.data || res.data.data.length === 0) {
-          console.error("Erro: Nenhum post encontrado.");
-          return res.data;
-      }
-  
-      createPost(res.data.data.Titulo);
-      
+    const res = await api.get('/forums/', authorizationHeader);
+
+    console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2));
+
+    if (!res.data || !res.data.data || res.data.data.length === 0) {
+      console.error("Erro: Nenhum post encontrado.");
       return res.data;
+    }
+
+
+    res.data.data.forEach((post: { Titulo?: string }) => {
+      if (post.Titulo) {
+        createPost(post.Titulo);
+      }
+    });
+
+    return res.data;
   }
-  
+
+
 
 
 
@@ -73,15 +77,15 @@ class ForumManager {
       authorizationHeader,
     );
     return res.data;
-   
+
   }
 
 
   async getById(id: string): Promise<StrapiResponseSingleForum<Forum>> {
     const res = await api.get(`/forums/${id}`, authorizationHeader)
-    
+
     return res.data;
-      
+
   }
 
   async delete(forum: Forum): Promise<Forum> {
@@ -121,15 +125,14 @@ forumForm?.addEventListener('submit', async (e) => {
   };
 
   const forumManager = new ForumManager();
-  
-    await forumManager.getAll();
- 
-    await forumManager.create(forum); 
-  
 
- // createPost(postContent.value);
+  await forumManager.getAll();
+
+  await forumManager.create(forum);
+
+
+  // createPost(postContent.value);
   forumForm.reset();
 });
 
 
- 

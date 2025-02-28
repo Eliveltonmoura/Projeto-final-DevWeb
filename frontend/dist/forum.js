@@ -47,12 +47,17 @@ class ForumManager {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield api.get('/forums/', authorizationHeader);
-            console.log("Resposta do Strapi:", res.data);
+            console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2)); // Verifique a resposta no console
             if (!res.data || !res.data.data || res.data.data.length === 0) {
                 console.error("Erro: Nenhum post encontrado.");
                 return res.data;
             }
-            createPost(res.data.data.Titulo);
+            // 🔹 Agora pegamos "Titulo" corretamente
+            res.data.data.forEach((post) => {
+                if (post.Titulo) {
+                    createPost(post.Titulo);
+                }
+            });
             return res.data;
         });
     }
