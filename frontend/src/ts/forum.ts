@@ -7,7 +7,7 @@ const authorizationHeader = {
 
 console.log(localStorage.getItem('token'));
 
-function createPost(content: string,id: string): void {
+function createPost(content: string, id: string): void {
   const postsContainer = document.getElementById('postsContainer');
 
   if (postsContainer) {
@@ -16,11 +16,12 @@ function createPost(content: string,id: string): void {
     postElement.classList.add('post');
 
     postElement.innerHTML = `
-      <p>${content}</p>
+      <p class="post-content">${content}</p>
       
       <div class="comment-section">
         <input type="text" class="comment-input" placeholder="Comentar...">  
         <button class="comment-button">Enviar</button>
+        <button class="edit-button">Editar</button>
         <button class="delete-button">Deletar</button>
       
         <div class="comments"></div>
@@ -93,17 +94,16 @@ class ForumManager {
     return forum
   }
 
-  async update(forum: Forum): Promise<StrapiResponseSingleForum<Forum>> {
-    const res = await api.put(
+  async update(forum: Forum): Promise<void> {
+    await api.put(
       `/forums/${forum.documentId}`,
       {
         data: {
           Titulo: forum.Titulo,
         },
       },
-      authorizationHeader,
+      authorizationHeader
     );
-    return res.data;
   }
 }
 
@@ -129,6 +129,26 @@ document.addEventListener("click", async (event) => {
   }
 
 });
+
+document.addEventListener("click", async (event) => {
+  const target = event.target as HTMLElement;
+
+  if (target.classList.contains("edit-button")) {
+    const postElement = target.closest(".post") as HTMLElement;
+    const postId = postElement?.getAttribute("data-id");
+    const postContentElement = postElement.querySelector(".post-content") as HTMLElement;
+
+    if (postId && postContentElement) {
+      const newTitle = prompt("Digite o novo título:", postContentElement.innerText);
+
+      if (newTitle && newTitle.trim() !== "") {
+        await forumManager.update({ documentId: postId, Titulo: newTitle } as Forum);
+        postContentElement.innerText = newTitle;
+      }
+    }
+  }
+});
+
 forumForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -143,17 +163,14 @@ forumForm?.addEventListener('submit', async (e) => {
     deadline: new Date().toISOString(),
   };
 
-  
- 
- await forumManager.create(forum);
- forumManager.getAll();
+
+
+  await forumManager.create(forum);
+  forumManager.getAll();
 
   // createPost(postContent.value);
   forumForm.reset();
 });
-
-
-
 
 forumManager.getAll();
 

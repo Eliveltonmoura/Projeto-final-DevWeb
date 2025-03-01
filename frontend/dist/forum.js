@@ -21,11 +21,12 @@ function createPost(content, id) {
         postElement.setAttribute("data-id", id);
         postElement.classList.add('post');
         postElement.innerHTML = `
-      <p>${content}</p>
+      <p class="post-content">${content}</p>
       
       <div class="comment-section">
         <input type="text" class="comment-input" placeholder="Comentar...">  
         <button class="comment-button">Enviar</button>
+        <button class="edit-button">Editar</button>
         <button class="delete-button">Deletar</button>
       
         <div class="comments"></div>
@@ -88,12 +89,11 @@ class ForumManager {
     }
     update(forum) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield api.put(`/forums/${forum.documentId}`, {
+            yield api.put(`/forums/${forum.documentId}`, {
                 data: {
                     Titulo: forum.Titulo,
                 },
             }, authorizationHeader);
-            return res.data;
         });
     }
 }
@@ -109,6 +109,21 @@ document.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, 
         if (postId) {
             yield forumManager.delete({ documentId: postId });
             postElement.remove();
+        }
+    }
+}));
+document.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    const target = event.target;
+    if (target.classList.contains("edit-button")) {
+        const postElement = target.closest(".post");
+        const postId = postElement === null || postElement === void 0 ? void 0 : postElement.getAttribute("data-id");
+        const postContentElement = postElement.querySelector(".post-content");
+        if (postId && postContentElement) {
+            const newTitle = prompt("Digite o novo título:", postContentElement.innerText);
+            if (newTitle && newTitle.trim() !== "") {
+                yield forumManager.update({ documentId: postId, Titulo: newTitle });
+                postContentElement.innerText = newTitle;
+            }
         }
     }
 }));
