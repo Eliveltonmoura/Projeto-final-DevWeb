@@ -7,18 +7,22 @@ const authorizationHeader = {
 
 console.log(localStorage.getItem('token'));
 
-function createPost(content: string): void {
+function createPost(content: string,id: string): void {
   const postsContainer = document.getElementById('postsContainer');
 
   if (postsContainer) {
     const postElement = document.createElement('div');
+    postElement.setAttribute("data-id", id);
     postElement.classList.add('post');
 
     postElement.innerHTML = `
       <p>${content}</p>
+      
       <div class="comment-section">
-        <input type="text" class="comment-input" placeholder="Comentar...">
+        <input type="text" class="comment-input" placeholder="Comentar...">  
         <button class="comment-button">Enviar</button>
+        <button class="delete-button">Deletar</button>
+      
         <div class="comments"></div>
       </div>
     `;
@@ -54,18 +58,14 @@ class ForumManager {
     }
 
 
-    res.data.data.forEach((post: { Titulo?: string }) => {
+    res.data.data.forEach((post: { Titulo?: string, documentId: string }) => {
       if (post.Titulo) {
-        createPost(post.Titulo);
+        createPost(post.Titulo, post.documentId);
       }
     });
 
     return res.data;
   }
-
-
-
-
 
   async create(forum: Forum): Promise<StrapiResponseSingleForum<Forum>> {
     const res = await api.post('/forums/',
@@ -89,8 +89,8 @@ class ForumManager {
   }
 
   async delete(forum: Forum): Promise<Forum> {
-    await api.delete(`/forums/${forum.documentId}`, authorizationHeader);
-    return forum;
+    await api.delete(`/forums/${forum.documentId}`, authorizationHeader)
+    return forum
   }
 
   async update(forum: Forum): Promise<StrapiResponseSingleForum<Forum>> {
@@ -110,6 +110,25 @@ class ForumManager {
 const forumForm = document.getElementById('forumForm') as HTMLFormElement;
 const postContent = document.getElementById('postContent') as HTMLInputElement;
 
+
+let forumToDelete: Forum;
+
+const forumManager = new ForumManager();
+
+document.addEventListener("click", async (event) => {
+  const target = event.target as HTMLElement;
+
+  if (target.classList.contains("delete-button")) {
+    const postElement = target.closest(".post") as HTMLElement;
+    const postId = postElement?.getAttribute("data-id");
+
+    if (postId) {
+      await forumManager.delete({ documentId: postId } as Forum);
+      postElement.remove();
+    }
+  }
+
+});
 forumForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -124,15 +143,17 @@ forumForm?.addEventListener('submit', async (e) => {
     deadline: new Date().toISOString(),
   };
 
-  const forumManager = new ForumManager();
-
-  forumManager.getAll();
-  await forumManager.create(forum);
+  
  
+ await forumManager.create(forum);
+ forumManager.getAll();
 
   // createPost(postContent.value);
   forumForm.reset();
 });
 
-const forumManager = new ForumManager();
+
+
+
 forumManager.getAll();
+

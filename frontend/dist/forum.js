@@ -14,16 +14,20 @@ const authorizationHeader = {
     },
 };
 console.log(localStorage.getItem('token'));
-function createPost(content) {
+function createPost(content, id) {
     const postsContainer = document.getElementById('postsContainer');
     if (postsContainer) {
         const postElement = document.createElement('div');
+        postElement.setAttribute("data-id", id);
         postElement.classList.add('post');
         postElement.innerHTML = `
       <p>${content}</p>
+      
       <div class="comment-section">
-        <input type="text" class="comment-input" placeholder="Comentar...">
+        <input type="text" class="comment-input" placeholder="Comentar...">  
         <button class="comment-button">Enviar</button>
+        <button class="delete-button">Deletar</button>
+      
         <div class="comments"></div>
       </div>
     `;
@@ -54,7 +58,7 @@ class ForumManager {
             }
             res.data.data.forEach((post) => {
                 if (post.Titulo) {
-                    createPost(post.Titulo);
+                    createPost(post.Titulo, post.documentId);
                 }
             });
             return res.data;
@@ -95,6 +99,19 @@ class ForumManager {
 }
 const forumForm = document.getElementById('forumForm');
 const postContent = document.getElementById('postContent');
+let forumToDelete;
+const forumManager = new ForumManager();
+document.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    const target = event.target;
+    if (target.classList.contains("delete-button")) {
+        const postElement = target.closest(".post");
+        const postId = postElement === null || postElement === void 0 ? void 0 : postElement.getAttribute("data-id");
+        if (postId) {
+            yield forumManager.delete({ documentId: postId });
+            postElement.remove();
+        }
+    }
+}));
 forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     if (!postContent.value.trim()) {
@@ -106,11 +123,9 @@ forumForm === null || forumForm === void 0 ? void 0 : forumForm.addEventListener
         done: false,
         deadline: new Date().toISOString(),
     };
-    const forumManager = new ForumManager();
-    forumManager.getAll();
     yield forumManager.create(forum);
+    forumManager.getAll();
     // createPost(postContent.value);
     forumForm.reset();
 }));
-const forumManager = new ForumManager();
 forumManager.getAll();
