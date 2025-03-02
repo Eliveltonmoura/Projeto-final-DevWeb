@@ -12,11 +12,14 @@ const cadastroForm = document.getElementById('cadastroForm');
 const nomeCadastro = document.getElementById('nome');
 const emailCadastro = document.getElementById('email');
 const senhaCadastro = document.getElementById('senha');
+const tipodeUsuario = document.getElementById('tipo_usuario');
+console;
 cadastroForm === null || cadastroForm === void 0 ? void 0 : cadastroForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const nome = nomeCadastro.value;
     const email = emailCadastro.value;
     const senha = senhaCadastro.value;
+    const tipo = tipodeUsuario.value;
     yield registro(nome, email, senha);
 }));
 function registro(nome, email, senha) {
@@ -24,7 +27,7 @@ function registro(nome, email, senha) {
         let res = yield api.post('/auth/local/register', {
             username: nome,
             email: email,
-            password: senha
+            password: senha,
         });
         const { jwt } = res.data;
         res = yield api.get('/users', {

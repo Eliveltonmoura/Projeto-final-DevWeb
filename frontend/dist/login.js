@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
 const senhaInput = document.getElementById('senha');
+const tipoUsuario = document.getElementById('TopodeUsuario');
+console.log(tipoUsuario.value);
 loginForm === null || loginForm === void 0 ? void 0 : loginForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const identificador = emailInput.value;
@@ -38,7 +40,14 @@ function login(identificador, senha) {
         localStorage.setItem('documentId', res.data.documentId);
         localStorage.setItem('role', res.data.role.name);
         localStorage.setItem('token', jwt);
-        location.assign('teladoUsuario.html');
-        console.log('Logado com sucesso');
+        if (tipoUsuario.value === 'professor') {
+            location.assign('teladoProfessor.html');
+            console.log('Logado com sucesso');
+            return;
+        }
+        else if (tipoUsuario.value === 'aluno') {
+            location.assign('teladoUsuario.html');
+            console.log('Logado com sucesso');
+        }
     });
 }

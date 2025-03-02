@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("logout")?.addEventListener("click", () => {
         alert("Você saiu da conta!");
-        window.location.href = "index.html"; 
+        window.location.href = "login.html"; 
     });
 
     document.getElementById("addAtividade")?.addEventListener("click", adicionarAtividade);

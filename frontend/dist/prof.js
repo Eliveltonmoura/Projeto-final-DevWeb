@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nomeProfessor.textContent = professor.nome;
     (_a = document.getElementById("logout")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
         alert("Você saiu da conta!");
-        window.location.href = "index.html";
+        window.location.href = "login.html";
     });
     (_b = document.getElementById("addAtividade")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", adicionarAtividade);
 });

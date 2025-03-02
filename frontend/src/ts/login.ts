@@ -1,13 +1,15 @@
 const loginForm = document.getElementById('loginForm')
 const emailInput = document.getElementById('email') as HTMLInputElement
 const senhaInput = document.getElementById('senha') as HTMLInputElement
+const tipoUsuario = document.getElementById('TopodeUsuario') as HTMLInputElement
+console.log(tipoUsuario.value)
 
-loginForm?.addEventListener('submit', async(e) => {
+loginForm?.addEventListener('submit', async (e) => {
   e.preventDefault()
   const identificador = emailInput.value
   const senha = senhaInput.value
   await login(identificador, senha)
-  
+
 })
 
 async function login(identificador: string, senha: string) {
@@ -15,7 +17,7 @@ async function login(identificador: string, senha: string) {
     identifier: identificador,
     password: senha
   })
-  const {jwt} = res.data
+  const { jwt } = res.data
 
   res = await api.get('/users/me', {
     headers: {
@@ -34,8 +36,14 @@ async function login(identificador: string, senha: string) {
   localStorage.setItem('role', res.data.role.name)
   localStorage.setItem('token', jwt);
 
-
-  location.assign('teladoUsuario.html')
-  console.log('Logado com sucesso')
+  if (tipoUsuario.value === 'professor') {
+    location.assign('teladoProfessor.html')
+    console.log('Logado com sucesso')
+    return
+  }
+  else if (tipoUsuario.value === 'aluno') {
+    location.assign('teladoUsuario.html')
+    console.log('Logado com sucesso')
+  }
 }
 
