@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
 const senhaInput = document.getElementById('senha');
-const tipoUsuario = document.getElementById('TopodeUsuario');
+const tipoUsuario = document.getElementById('TipodeUsuario');
 console.log(tipoUsuario.value);
 loginForm === null || loginForm === void 0 ? void 0 : loginForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();

@@ -1,7 +1,7 @@
 const loginForm = document.getElementById('loginForm')
 const emailInput = document.getElementById('email') as HTMLInputElement
 const senhaInput = document.getElementById('senha') as HTMLInputElement
-const tipoUsuario = document.getElementById('TopodeUsuario') as HTMLInputElement
+const tipoUsuario = document.getElementById('TipodeUsuario') as HTMLInputElement
 console.log(tipoUsuario.value)
 
 loginForm?.addEventListener('submit', async (e) => {
