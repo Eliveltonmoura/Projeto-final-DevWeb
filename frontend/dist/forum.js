@@ -52,7 +52,6 @@ class ForumManager {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield api.get('/forums/', authorizationHeader);
-            console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2));
             if (!res.data || !res.data.data || res.data.data.length === 0) {
                 console.error("Erro: Nenhum post encontrado.");
                 return res.data;
@@ -106,6 +105,7 @@ document.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, 
     if (target.classList.contains("delete-button")) {
         const postElement = target.closest(".post");
         const postId = postElement === null || postElement === void 0 ? void 0 : postElement.getAttribute("data-id");
+        console.log(postId);
         if (postId) {
             yield forumManager.delete({ documentId: postId });
             postElement.remove();

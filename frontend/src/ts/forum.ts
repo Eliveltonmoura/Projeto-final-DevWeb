@@ -50,8 +50,8 @@ function createPost(content: string, id: string): void {
 class ForumManager {
   async getAll(): Promise<StrapiResponseForum<Forum>> {
     const res = await api.get('/forums/', authorizationHeader);
+    
 
-    console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2));
 
     if (!res.data || !res.data.data || res.data.data.length === 0) {
       console.error("Erro: Nenhum post encontrado.");
@@ -121,6 +121,7 @@ document.addEventListener("click", async (event) => {
   if (target.classList.contains("delete-button")) {
     const postElement = target.closest(".post") as HTMLElement;
     const postId = postElement?.getAttribute("data-id");
+    console.log(postId)
 
     if (postId) {
       await forumManager.delete({ documentId: postId } as Forum);

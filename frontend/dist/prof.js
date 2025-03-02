@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+let atividadeDelete;
 const authorizationHeaderprof = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -48,6 +49,7 @@ class ProfessorDashboard {
             }
             const res = yield api.get('/atividades', authorizationHeaderprof);
             const atividades = res.data.data || [];
+            // console.log("Resposta completa do Strapi:", JSON.stringify(res.data, null, 2));
             if (atividades.length === 0) {
                 listaAtividades.innerHTML = "<p>Nenhuma atividade encontrada.</p>";
                 return;
@@ -55,15 +57,24 @@ class ProfessorDashboard {
             listaAtividades.innerHTML = "";
             atividades.forEach((atividade) => {
                 const atividadeElement = document.createElement("div");
+                atividadeElement.setAttribute("data-id", atividade.documentId);
                 atividadeElement.classList.add("atividade");
                 atividadeElement.innerHTML = `
+                
                 <h3>${atividade.tarefa}</h3>
                 <p>${atividade.descricao}</p>
                 <p><strong>Prazo:</strong> ${atividade.praso}</p>
                 <p><strong>Status:</strong> ${atividade.done ? "Concluído ✅" : "Pendente ⏳"}</p>
+                <button class="delete-button">Deletar</button>
             `;
                 listaAtividades.appendChild(atividadeElement);
             });
+        });
+    }
+    delete(atividade) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield api.delete(`/atividades/${atividade.documentId}`, authorizationHeaderprof);
+            return atividade;
         });
     }
 }
@@ -71,6 +82,19 @@ const professorDashboard = new ProfessorDashboard();
 document.addEventListener("DOMContentLoaded", () => {
     professorDashboard.loadActivities();
 });
+document.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    const target = event.target;
+    if (target.classList.contains("delete-button")) {
+        const postElement = target.closest(".atividade");
+        const postId = postElement === null || postElement === void 0 ? void 0 : postElement.getAttribute("data-id");
+        console.log(postId);
+        if (postId) {
+            professorDashboard.delete({ documentId: postId });
+            console.log("deletou");
+            postElement.remove();
+        }
+    }
+}));
 function AddAtividade() {
     window.location.href = "/frontend/src/pag/adicionar_atividade.html";
 }
