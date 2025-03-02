@@ -373,7 +373,7 @@ export interface ApiAtividadeAtividade extends Struct.CollectionTypeSchema {
   collectionName: 'atividades';
   info: {
     description: '';
-    displayName: 'Atividade';
+    displayName: 'tarefa';
     pluralName: 'atividades';
     singularName: 'atividade';
   };
@@ -381,11 +381,9 @@ export interface ApiAtividadeAtividade extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    atividade: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    data: Schema.Attribute.DateTime;
     descricao: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -393,7 +391,9 @@ export interface ApiAtividadeAtividade extends Struct.CollectionTypeSchema {
       'api::atividade.atividade'
     > &
       Schema.Attribute.Private;
+    praso: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
+    tarefa: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -912,7 +912,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -944,6 +943,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    tipo: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Aluno'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

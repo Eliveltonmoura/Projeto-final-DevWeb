@@ -4,21 +4,21 @@
   "info": {
     "singularName": "atividade",
     "pluralName": "atividades",
-    "displayName": "Atividade",
+    "displayName": "tarefa",
     "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "atividade": {
-      "type": "string"
-    },
     "descricao": {
       "type": "text"
     },
-    "data": {
-      "type": "datetime"
+    "tarefa": {
+      "type": "string"
+    },
+    "praso": {
+      "type": "date"
     }
   }
 }
