@@ -37,7 +37,7 @@ async function login(identificador: string, senha: string) {
   localStorage.setItem('token', jwt);
 
   if (tipoUsuario.value === 'professor') {
-    location.assign('teladoProfessor.html')
+    location.assign('telaDoProfessor.html')
     console.log('Logado com sucesso')
     return
   }
