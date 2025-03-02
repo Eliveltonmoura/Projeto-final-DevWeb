@@ -1,17 +1,16 @@
-
+const authorizationHeaderprof = {
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+};
 const professor = {
-    nome: "Elivelton",
-    email: "elivelton@escola.com",
-    foto: "img/professor.jpg"
+    nome:  localStorage.getItem("username")
 };
 document.addEventListener("DOMContentLoaded", () => {
     const nomeProfessor = document.getElementById("nomeProfessor") as HTMLElement;
-    const emailProfessor = document.getElementById("emailProfessor") as HTMLElement;
-    const fotoPerfil = document.getElementById("fotoPerfil") as HTMLImageElement;
-
+    
     nomeProfessor.textContent = professor.nome;
-    emailProfessor.textContent = professor.email;
-    fotoPerfil.src = professor.foto;
+
 
     document.getElementById("logout")?.addEventListener("click", () => {
         alert("Você saiu da conta!");
@@ -19,11 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("addAtividade")?.addEventListener("click", adicionarAtividade);
-    document.getElementById("addMaterial")?.addEventListener("click", adicionarMaterial);
-    document.getElementById("addTurma")?.addEventListener("click", adicionarTurma);
 
-    
-    setInterval(mostrarResultados, 5000);
+   
 });
 
 
@@ -42,25 +38,46 @@ function adicionarAtividade(): void {
     }
 }
 
-function adicionarMaterial(): void {
-    const nomeInput = document.getElementById("materialNome") as HTMLInputElement;
-    const linkInput = document.getElementById("materialLink") as HTMLInputElement;
-    const listaMateriais = document.getElementById("listaMateriais") as HTMLUListElement;
+class ProfessorDashboard {
+    async loadActivities(): Promise<void> {
+        const listaAtividades = document.getElementById("listaAtividades") as HTMLDivElement;
+        
+        if (!listaAtividades) {
+            console.error("Erro: Elemento listaAtividades não encontrado.");
+            return;
+        }
 
-    if (nomeInput.value.trim() !== "" && linkInput.value.trim() !== "") {
-        const materialItem = document.createElement("li");
-        materialItem.innerHTML = `<a href="${linkInput.value}" target="_blank">${nomeInput.value}</a>`;
-        listaMateriais.appendChild(materialItem);
+        const res = await api.get('/atividades',authorizationHeaderprof);
+        const atividades = res.data.data || [];
 
-        nomeInput.value = "";
-        linkInput.value = "";
+        if (atividades.length === 0) {
+            listaAtividades.innerHTML = "<p>Nenhuma atividade encontrada.</p>";
+            return;
+        }
+
+        listaAtividades.innerHTML = "";
+        atividades.forEach((atividade: { tarefa: string; descricao: string; praso: string; done: boolean; }) => {
+            const atividadeElement = document.createElement("div");
+            atividadeElement.classList.add("atividade");
+            atividadeElement.innerHTML = `
+                <h3>${atividade.tarefa}</h3>
+                <p>${atividade.descricao}</p>
+                <p><strong>Prazo:</strong> ${atividade.praso}</p>
+                <p><strong>Status:</strong> ${atividade.done ? "Concluído ✅" : "Pendente ⏳"}</p>
+            `;
+            listaAtividades.appendChild(atividadeElement);
+        });
     }
 }
-function adicionarTurma(this: HTMLElement, ev: MouseEvent) {
-    throw new Error("Function not implemented.");
-}
 
-function mostrarResultados(): void {
-    throw new Error("Function not implemented.");
-}
+const professorDashboard = new ProfessorDashboard();
 
+document.addEventListener("DOMContentLoaded", () => {
+    professorDashboard.loadActivities(); 
+});
+
+
+function AddAtividade(){
+
+    window.location.href = "/frontend/src/pag/adicionar_atividade.html";
+}

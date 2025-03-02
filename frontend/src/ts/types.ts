@@ -11,7 +11,7 @@ interface StrapiResponseForum<T> {
 
 
 
-interface StrapiResponseSingle<Atividade> {
+interface StrapiResponseSingleAtiviade<Atividade> {
   data: Atividade
   meta: Pagination
 }
@@ -39,11 +39,12 @@ interface Forum {
 }
 
 interface Atividade {
-  documentId?: string,
+  documentId?: string, 
+  tarefa?: string
   description: string,
-  done: boolean,
-  deadline?: string,
-  titulo?: string
+  praso?: string,
+  done?: boolean
+ 
 }
 
 

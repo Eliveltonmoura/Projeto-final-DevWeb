@@ -104,11 +104,81 @@ button:hover {
     background-color: #0056b3;
 }
 
+.botao-adicionar {
+    width: 120px;
+    height: 120px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px; /* Remova para manter um quadrado perfeito */
+    margin: 20px auto;
+}
+
+.botao-adicionar:hover {
+    background-color: #0056b3;
+}
+#listaAtividades {
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.atividade {
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #007BFF;
+    transition: transform 0.2s ease-in-out;
+}
+
+.atividade:hover {
+    transform: scale(1.02);
+}
+
+.atividade h3 {
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.atividade p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.atividade strong {
+    color: #007BFF;
+}
+
+.atividade .status-concluido {
+    color: green;
+    font-weight: bold;
+}
+
+.atividade .status-pendente {
+    color: red;
+    font-weight: bold;
+}
+
+
+
+
 /* Rodapé */
 footer {
     text-align: center;
     padding: 10px;
     background-color: #007bff;
     color: white;
-    margin-top: 20px;
+    margin-top: 30vw;
 }
